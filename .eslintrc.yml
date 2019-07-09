@@ -1,0 +1,31 @@
+parser: 'babel-eslint'
+extends:
+  - airbnb
+  - plugin:jest/recommended
+rules:
+  func-names: off
+  no-console: ['warn', {
+    allow: ['info', 'warn', 'error']
+  }]
+  import/no-cycle: off
+  max-len: ['error', 80, 2, {
+    ignoreUrls: true,
+    ignoreComments: false,
+    ignoreRegExpLiterals: true,
+    ignoreStrings: true,
+    ignoreTemplateLiterals: true,
+  }]
+  jest/no-identical-title: off
+  react/jsx-one-expression-per-line: off
+  react-hooks/rules-of-hooks: error
+  react-hooks/exhaustive-deps: warn
+  jsx-a11y/label-has-for: [2, {
+    components: ['Label'],
+    required: {
+      some: ['nesting', 'id']
+    },
+    allowChildren: false
+  }]
+plugins:
+  - jest
+  - react-hooks
