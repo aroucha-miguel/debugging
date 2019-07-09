@@ -2,7 +2,9 @@ import React from 'react';
 import {
   compose, graphql,
 } from 'react-apollo';
+import TITLE from './queries/title';
 import FOOD_ENTRIES from './queries/foodEntries';
+import SET_TITLE from './mutations/setTitle';
 import CHECK_FOOD_ENTRY from './mutations/checkFoodEntry';
 
 class RightComponent extends React.Component {
@@ -14,6 +16,22 @@ class RightComponent extends React.Component {
       variables: {
         id,
         isEnabled
+      },
+    });
+  }
+
+  changeTitle = () => {
+    const {
+      titleData,
+      SetTitle,
+    } = this.props;
+    let title = 'hello there';
+    if (titleData.title === 'hello there') {
+      title = 'general kenobi';
+    }
+    SetTitle({
+      variables: {
+        title,
       },
     });
   }
@@ -37,17 +55,27 @@ class RightComponent extends React.Component {
           );
         }
       )}
+      <div>
+        <button
+          onClick={this.changeTitle}
+        >
+          Change Title
+        </button>
+      </div>
       </div>
     );
   }
 }
 
 export default compose(
-  // graphql(LOCALE, {
-  //   name: 'localeData',
-  // }),
+  graphql(TITLE, {
+    name: 'titleData',
+  }),
   graphql(FOOD_ENTRIES, {
     name: 'foodEntriesData',
+  }),
+  graphql(SET_TITLE, {
+    name: 'SetTitle',
   }),
   graphql(CHECK_FOOD_ENTRY, {
     name: 'CheckFoodEntry',

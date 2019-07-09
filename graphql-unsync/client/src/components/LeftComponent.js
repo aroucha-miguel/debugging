@@ -2,13 +2,20 @@ import React from 'react';
 import {
   compose, graphql,
 } from 'react-apollo';
+import TITLE from './queries/title';
 import FOOD_ENTRIES from './queries/foodEntries';
 
 const LeftComponent = ({
-  foodEntriesData
+  titleData,
+  foodEntriesData,
 }) => {
   return (
     <div className="Box">
+      {titleData.title && (
+        <div>
+          {titleData.title}
+        </div>
+      )}
       {foodEntriesData.foodEntries && foodEntriesData.foodEntries.map(
         ({ id, name, isEnabled }) => {
           if (isEnabled) {
@@ -26,9 +33,9 @@ const LeftComponent = ({
 }
 
 export default compose(
-  // graphql(LOCALE, {
-  //   name: 'localeData',
-  // }),
+  graphql(TITLE, {
+    name: 'titleData',
+  }),
   graphql(FOOD_ENTRIES, {
     name: 'foodEntriesData',
   }),
